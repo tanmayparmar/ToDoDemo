@@ -1,0 +1,38 @@
+<h6>Create Todo:</h6>
+<form (ngSubmit)="onSubmit()" #todoForm="ngForm">
+  <div class="form-group">
+    <div class="col-auto">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="To-Do Description"
+          id="description"
+          [(ngModel)]="model.description"
+          name="description"
+          #description="ngModel">
+    </div>
+    <div class="col-auto">
+      <button type="submit" class="btn btn-primary">Create</button>
+    </div>
+  </div>
+</form>
+<br />
+<h6>Todos List:</h6>
+<div *ngIf="(todos | async)?.length!=0">
+<table class="table">
+  <thead class="thead-inverse">
+    <tr>
+      <th>#</th>
+      <th>Todo Description</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let t of todos | async">
+      <td><span (click)="toggleTodo(t)" [class.completed]="t.isCompleted">{{ t.id }}</span></td>
+      <td><span (click)="toggleTodo(t)" [class.completed]="t.isCompleted">{{ t.description }}</span></td>
+      <td><button class="btn btn-primary" (click)="removeTodo(t)">Delete</button></td>
+    </tr>
+  </tbody>
+</table>
+</div>
